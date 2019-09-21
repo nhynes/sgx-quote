@@ -1,0 +1,21 @@
+[package]
+name = "sgx-quote-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+edition = "2018"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+sgx-quote = { path = ".." }
+libfuzzer-sys = { git = "https://github.com/rust-fuzz/libfuzzer-sys.git" }
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "sgx_quote"
+path = "fuzz_targets/sgx_quote.rs"

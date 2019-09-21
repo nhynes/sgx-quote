@@ -1,3 +1,5 @@
 target/
+fuzz/corpus
+fuzz/artifacts
 **/*.rs.bk
 Cargo.lock
