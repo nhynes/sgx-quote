@@ -61,6 +61,7 @@ pub struct ReportBody<'a> {
 }
 
 impl<'a> ReportBody<'a> {
+    /// Returns the part of the QE report body that's been signed by the PCK.
     pub fn signed_message(&self) -> &[u8] {
         &self.signed_message
     }
