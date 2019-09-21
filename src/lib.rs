@@ -13,14 +13,15 @@ pub struct Quote<'a> {
     signed_message: &'a [u8],
 }
 
+/// An Intel SGX Version 3 quote, as specified in
+//// https://download.01.org/intel-sgx/dcap-1.1/linux/docs/Intel_SGX_ECDSA_QuoteGenReference_DCAP_API_Linux_1.1.pdf.
 impl<'a> Quote<'a> {
     pub fn parse(quote_bytes: &'a [u8]) -> Result<Self, Err<(&'a [u8], ErrorKind)>> {
         crate::parsers::parse_quote(quote_bytes).map(|qp| qp.1)
     }
-}
 
-impl<'a> AsRef<[u8]> for Quote<'a> {
-    fn as_ref(&self) -> &[u8] {
+    /// Returns the part of the quote that's signed by the AK (i.e. *header* || *isv_report*).
+    pub fn signed_message(&self) -> &[u8] {
         &self.signed_message
     }
 }
@@ -60,7 +61,7 @@ pub struct ReportBody<'a> {
 }
 
 impl<'a> ReportBody<'a> {
-    pub fn as_bytes(&self) -> &[u8] {
+    pub fn signed_message(&self) -> &[u8] {
         &self.signed_message
     }
 }

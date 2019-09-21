@@ -17,7 +17,7 @@ pub(crate) fn parse_quote(i: &[u8]) -> IResult<&[u8], Quote, (&[u8], ErrorKind)>
         isv_report: parse_report_body                 >>
         signature:  length_value!(le_u32,
             call!(parse_signature, header_ext.ak_ty)) >>
-                    eof!() >>
+        _eof:       eof!()                            >>
         (
             Quote {
                 header: header_ext.header,
